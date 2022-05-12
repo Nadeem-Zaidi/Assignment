@@ -135,7 +135,7 @@ class LoadCSV:
 basicstats= BasicStats.BasicStatistics()
 correlation= CorrelationImplement.CorrelationImplement()
 plot= DataPlot.DataPlot()
-c=LoadCSV("../csv_files/car.csv", basicstats, correlation, plot)
+c=LoadCSV("csv_files/car.csv", basicstats, correlation, plot)
 print(c.data_shape)
 print(c.columns_present)
 print(c.mean('price'))
