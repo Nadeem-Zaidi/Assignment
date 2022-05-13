@@ -1,5 +1,7 @@
+from collections import defaultdict
+
 import numpy as np
-from pandas import Series
+from pandas import Series, DataFrame
 from BasicStats import StatisticMethods
 from scipy import stats
 from utility import utility
@@ -74,3 +76,51 @@ class BasicStatistics(StatisticMethods.StatisticsMethods):
             return outlier
         else:
             return utility.message("outlier")
+
+    def mean_and_std_of_each_columns(self ,data :DataFrame)->dict[str:any]:
+        '''this will return the mean and the standard deviation for all the series in the data frame in dict form
+        :type data: object
+        '''
+        md = defaultdict()
+        mean_dict = defaultdict()
+        std_dict = defaultdict()
+        for c in data.columns:
+            if utility.ValidSeries(data[c]):
+                mean = self.mean(data[c])
+                std = self.standard_deviation(data[c])
+                utility.dictionary(c, mean, mean_dict)
+                utility.dictionary(c, std, std_dict)
+
+        utility.dictionary("mean", mean_dict, md)
+        utility.dictionary("standard_deviation", std_dict, md)
+        return md
+
+    def percentile_of_each_column(self,data:DataFrame)->dict:
+        percentile=defaultdict()
+        q1=defaultdict()
+        q2=defaultdict()
+        q3=defaultdict()
+        for c in data:
+            if utility.ValidSeries(data[c]):
+                series=data[c]
+                percentile_q1=self.percentile(series,25)
+                percentile_q2=self.percentile(series,50)
+                percentile_q3=self.percentile(series,75)
+                utility.dictionary(c,percentile_q1,q1)
+                utility.dictionary(c, percentile_q2, q2)
+                utility.dictionary(c, percentile_q3, q3)
+        utility.dictionary("percentile_q1",q1,percentile)
+        utility.dictionary("percentile_q2", q2, percentile)
+        utility.dictionary("percentile_q3", q3, percentile)
+        return percentile
+
+    def IQR_for_each_column(self,data:DataFrame):
+        iqr_dict = defaultdict()
+        final_iqr_dict=defaultdict()
+        for c in data.columns:
+            if utility.ValidSeries(data[c]):
+                series = data[c]
+                iqr = self.IQR(series)
+                utility.dictionary(c, iqr, iqr_dict)
+        utility.dictionary("IQR",iqr_dict,final_iqr_dict)
+        return(final_iqr_dict)

@@ -15,3 +15,11 @@ class DataPlot(Plot.Plot):
             plt.title(f"Plot of {series1.name} vs {series2.name}")
             plt.scatter(series1,series2)
             plt.show()
+
+    def BoxPlot(self,col:str,data:DataFrame):
+        '''this function will help in calculating the box plot'''
+        series=data[col]
+        if utility.ValidSeries(series):
+            plt.title(f"Box plot for {col}")
+            plt.boxplot(series)
+            plt.show()

@@ -1,5 +1,5 @@
 from abc import ABC,abstractmethod
-from pandas import Series
+from pandas import Series, DataFrame
 
 
 class StatisticsMethods(ABC):
@@ -27,6 +27,19 @@ class StatisticsMethods(ABC):
     @abstractmethod
     def outlier_using_zscore(self,series_data:Series)->list[float]|str:
         '''return the outlier using the z core in list'''
+
+    @abstractmethod
+    def mean_and_std_of_each_columns(self, data: DataFrame):
+        '''this will return the mean and the standard deviation for all the series in the data frame in dict form'''
+
+    @abstractmethod
+    def percentile_of_each_column(self):
+        '''this will return the percetile_25,percentile_50,percentile_75 for each series in dataframe'''
+
+    @abstractmethod
+    def IQR_for_each_column(self):
+        '''this will return the IQR value for the each series in dataframe'''
+
 
 
 
